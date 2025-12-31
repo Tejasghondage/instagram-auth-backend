@@ -6,16 +6,17 @@ import com.tejas.instagram.util.Validation;
 
 public class LoginService {
 
-	public static String loginUser(String userInput, String password) {
+	public String loginUser(String userInput, String password) {
+		LoginDao dao = new LoginDao();
 		String hashPass = EncryptPass.encryptedPass(password);
 		if (userInput.isEmpty()) {
 			return "user Input is empty";
-		} else if (Validation.isMail(userInput)) {
-			return LoginDao.loginUserByMail(userInput.toLowerCase(), hashPass);
-		} else if (Validation.isMobile(userInput)) {
-			return LoginDao.loginUserByMobile(userInput, hashPass);
+		} else if (Validation.isValidEmail(userInput)) {
+			return dao.loginUserByMail(userInput.toLowerCase(), hashPass);
+		} else if (Validation.isValidMobile(userInput)) {
+			return dao.loginUserByMobile(userInput, hashPass);
 		} else {
-			return LoginDao.loginUserByUserName(userInput, hashPass);
+			return dao.loginUserByUserName(userInput, hashPass);
 		}
 	}
 

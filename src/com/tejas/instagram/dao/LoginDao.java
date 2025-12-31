@@ -7,19 +7,20 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.tejas.instagram.config.HibernateConfiguration;
-import com.tejas.instagram.entity.SignUp;
+import com.tejas.instagram.entity.User;
 
 public class LoginDao {
 
-	public static String loginUserByMail(String userInput, String hashPass) {
+	public String loginUserByMail(String userInput, String hashPass) {
 		Session session = HibernateConfiguration.hibernateConfiguration().openSession();
-		Criteria criteria = session.createCriteria(SignUp.class);
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("Email", userInput));
-		List<SignUp> list = criteria.list();
+		@SuppressWarnings("unchecked")
+		List<User> list = criteria.list();
 
-		for (SignUp signup : list) {
-			System.out.println(signup.getPassword().equals(hashPass));
-			if (signup != null && signup.getPassword().equals(hashPass)) {
+		for (User user : list) {
+			if (user != null && user.getPassword().equals(hashPass)) {
 				return "Login Sucessfull !!!";
 
 			}
@@ -27,13 +28,15 @@ public class LoginDao {
 		return "Invalid Credentials ";
 	}
 
-	public static String loginUserByMobile(String userInput, String hashPass) {
+	@SuppressWarnings("unchecked")
+	public String loginUserByMobile(String userInput, String hashPass) {
 
 		Session session = HibernateConfiguration.hibernateConfiguration().openSession();
-		Criteria criteria = session.createCriteria(SignUp.class);
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("mobileNo", userInput));
-		List<SignUp> list = criteria.list();
-		for (SignUp signup : list) {
+		List<User> list = criteria.list();
+		for (User signup : list) {
 			if (signup != null && signup.getPassword().equals(hashPass)) {
 				return "Login Sucessfull !!!";
 
@@ -42,12 +45,14 @@ public class LoginDao {
 		return "Invalid Credentials ";
 	}
 
-	public static String loginUserByUserName(String userInput, String hashPass) {
+	public String loginUserByUserName(String userInput, String hashPass) {
 		Session session = HibernateConfiguration.hibernateConfiguration().openSession();
-		Criteria criteria = session.createCriteria(SignUp.class);
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("userName", userInput));
-		List<SignUp> list = criteria.list();
-		for (SignUp signup : list) {
+		@SuppressWarnings("unchecked")
+		List<User> list = criteria.list();
+		for (User signup : list) {
 			if (signup != null && signup.getPassword().equals(hashPass)) {
 				return "Login Sucessfull !!!";
 

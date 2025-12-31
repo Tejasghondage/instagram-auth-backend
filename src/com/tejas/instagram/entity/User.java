@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class SignUp {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int UserID;
@@ -86,7 +86,7 @@ public class SignUp {
 
 	@Override
 	public String toString() {
-		return "SignUp [UserID=" + UserID + ", mobileNo=" + mobileNo + ", Email=" + Email + ", userFullName="
+		return "User [UserID=" + UserID + ", mobileNo=" + mobileNo + ", Email=" + Email + ", userFullName="
 				+ userFullName + ", userName=" + userName + ", dateOfCreation=" + dateOfCreation
 				+ ", dateOfModification=" + dateOfModification + ", Password=" + Password + "]";
 	}

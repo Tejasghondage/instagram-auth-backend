@@ -7,23 +7,25 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import com.tejas.instagram.config.HibernateConfiguration;
-import com.tejas.instagram.entity.SignUp;
+import com.tejas.instagram.entity.User;
 
 public class SignUpUserDao {
 
-	public static String signUpDao(SignUp signUp) {
+	public String signUpDao(User user) {
 		Session session = HibernateConfiguration.hibernateConfiguration().openSession();
-		session.persist(signUp);
+		session.persist(user);
 		session.beginTransaction().commit();
 		session.close();
 		return "User sucessfully signed up ";
 	}
 
-	public static List<SignUp> getUserName(String userName) {
+	@SuppressWarnings("unchecked")
+	public static List<User> getUserName(String userName) {
 		Session session = HibernateConfiguration.hibernateConfiguration().openSession();
-		Criteria criteria = session.createCriteria(SignUp.class);
+		@SuppressWarnings("deprecation")
+		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("userName", userName));
-		List<SignUp> list = criteria.list();
+		List<User> list = criteria.list();
 		return list;
 	}
 
